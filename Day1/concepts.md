@@ -2,76 +2,150 @@
 
 ---
 
+## Overview
+
+```text
+Goal:
+Understand what Java is and build a strong foundation in Object-Oriented Programming (OOP)
+
+You will learn:
+- What is Java
+- Why Java is used
+- What is OOP
+- 4 Pillars of OOP with real-life examples
+```
+
+---
+
 ## 1. What is Java?
 
-Java is a high-level, object-oriented programming language used to build applications such as web apps, mobile apps, and enterprise systems.
+```text
+Java is a high-level, object-oriented programming language
+used to build scalable and platform-independent applications.
+```
 
-### Key Features:
+### Key Features
 
-* Platform independent (Write Once, Run Anywhere)
-* Object-Oriented
-* Secure and robust
-* Widely used in backend development
+```text
+- Platform Independent  -> Write Once, Run Anywhere
+- Object-Oriented      -> Based on real-world modeling
+- Secure               -> Strong memory management
+- Widely Used          -> Backend, Android, Enterprise apps
+```
 
 ---
 
 ## 2. Why Java?
 
-Java is popular because:
-
-* It is easy to learn for beginners
-* It is used in real-world applications (banking systems, enterprise software)
-* It has strong community support
-* It is widely used in frameworks like Spring Boot
-
----
-
-## 3. What is Object-Oriented Programming (OOP)?
-
-Object-Oriented Programming is a way of designing programs using **objects and classes**.
-
-Instead of writing everything as functions, we model real-world entities as objects.
-
----
-
-## 4. Real-Life Example to Understand OOP
-
-Consider a **Car**.
-
-* Car → Class
-* BMW, Audi → Objects
-* Color, Speed → Properties (variables)
-* Drive(), Brake() → Methods (functions)
-
-### Simple Understanding:
-
-A class is a blueprint, and an object is a real-world instance of that blueprint.
-
----
-
-## 5. Four Pillars of OOP
-
----
-
-### 5.1 Encapsulation
-
-Encapsulation means **hiding data and allowing access through methods only**.
-
-#### Real-Life Example:
-
-Think of an ATM machine.
-
-* You cannot directly access your bank balance.
-* You must use operations like "check balance".
-
-#### Key Idea:
-
-* Data is private
-* Access is controlled
-
-#### Pseudo Code:
-
+```text
+Java is widely used in real-world systems such as:
+- Banking applications
+- Government systems
+- Enterprise backend services
 ```
+
+### Simple Understanding
+
+```text
+Java = Reliable + Scalable + Industry Standard
+```
+
+---
+
+## 3. What is OOP?
+
+```text
+OOP (Object-Oriented Programming) is a way of designing programs
+using real-world objects.
+
+Instead of writing only functions, we create objects that
+contain both data and behavior.
+```
+
+---
+
+## 4. Real-Life Example (Car System)
+
+```text
+           +----------------------+
+           |        Car           |   <-- Class (Blueprint)
+           +----------------------+
+           | color                |
+           | speed                |
+           +----------------------+
+           | drive()              |
+           | brake()              |
+           +----------------------+
+
+                /         \
+               /           \
+              v             v
+
+        +---------+   +---------+
+        |  BMW    |   |  Audi   |   <-- Objects (Instances)
+        +---------+   +---------+
+```
+
+---
+
+## 5. Class vs Object
+
+```text
++----------------+----------------------+
+| Concept        | Meaning              |
++----------------+----------------------+
+| Class          | Blueprint            |
+| Object         | Real instance        |
++----------------+----------------------+
+```
+
+### Example
+
+```text
+Class  -> Car
+Object -> BMW, Audi
+```
+
+---
+
+## 6. Four Pillars of OOP
+
+---
+
+### 6.1 Encapsulation
+
+```text
+Definition:
+Hiding data and allowing access only through methods
+```
+
+### Real-Life Example (ATM)
+
+```text
+User -> [ ATM Machine ] -> Bank System
+
+You cannot directly access balance
+You must use:
+- checkBalance()
+- deposit()
+```
+
+### ASCII Representation
+
+```text
++----------------------+
+|    BankAccount       |
++----------------------+
+| - balance (private)  |
++----------------------+
+| + getBalance()       |
+| + deposit()          |
++----------------------+
+```
+
+### Pseudo Code
+
+```text
 class BankAccount:
     private balance
 
@@ -84,23 +158,39 @@ class BankAccount:
 
 ---
 
-### 5.2 Inheritance
+### 6.2 Inheritance
 
-Inheritance means **one class can use properties and methods of another class**.
-
-#### Real-Life Example:
-
-A Dog is an Animal.
-
-* Dog inherits behavior like eat(), sleep() from Animal.
-
-#### Key Idea:
-
-* Reusability of code
-
-#### Pseudo Code:
-
+```text
+Definition:
+One class can inherit properties and methods of another class
 ```
+
+### Real-Life Example
+
+```text
+Animal
+  |
+  +---- Dog
+  +---- Cat
+```
+
+### ASCII Representation
+
+```text
+        +--------+
+        | Animal |
+        +--------+
+            |
+    ----------------
+    |              |
++--------+     +--------+
+|  Dog   |     |  Cat   |
++--------+     +--------+
+```
+
+### Pseudo Code
+
+```text
 class Animal:
     method eat()
 
@@ -110,27 +200,33 @@ class Dog extends Animal:
 
 ---
 
-### 5.3 Polymorphism
+### 6.3 Polymorphism
 
-Polymorphism means **one action can behave differently in different situations**.
-
-#### Real-Life Example:
-
-A person can:
-
-* Work as a Developer at office
-* Act as a Parent at home
-
-Same person, different behavior.
-
-#### Types:
-
-* Compile-time (method overloading)
-* Runtime (method overriding)
-
-#### Pseudo Code:
-
+```text
+Definition:
+One method behaves differently based on input
 ```
+
+### Real-Life Example
+
+```text
+Same person:
+- Office -> Developer
+- Home   -> Parent
+```
+
+### ASCII Representation
+
+```text
+         add()
+        /  |  \
+       /   |   \
+  add(2,3) add(2,3,4)
+```
+
+### Pseudo Code
+
+```text
 method add(a, b):
     return a + b
 
@@ -140,24 +236,38 @@ method add(a, b, c):
 
 ---
 
-### 5.4 Abstraction
+### 6.4 Abstraction
 
-Abstraction means **showing only essential details and hiding complexity**.
-
-#### Real-Life Example:
-
-When you drive a car:
-
-* You use steering, brake, accelerator
-* You do not know how the engine works internally
-
-#### Key Idea:
-
-* Focus on what to do, not how it works
-
-#### Pseudo Code:
-
+```text
+Definition:
+Showing only important details and hiding complexity
 ```
+
+### Real-Life Example (Car Driving)
+
+```text
+Driver uses:
+- Steering
+- Brake
+- Accelerator
+
+Driver does NOT see:
+- Engine internals
+- Fuel system
+```
+
+### ASCII Representation
+
+```text
+User --> [ Car Interface ] --> Internal System
+
+User sees: start(), stop()
+Hidden: engine logic
+```
+
+### Pseudo Code
+
+```text
 abstract class Vehicle:
     abstract method start()
 
@@ -168,23 +278,9 @@ class Car extends Vehicle:
 
 ---
 
-## 6. Class vs Object
-
-| Concept | Meaning               |
-| ------- | --------------------- |
-| Class   | Blueprint or template |
-| Object  | Instance of a class   |
-
-### Example:
-
-* Class: Car
-* Object: BMW, Audi
-
----
-
 ## 7. Simple Java Example
 
-```
+```java
 class Car {
     String color;
 
@@ -204,27 +300,47 @@ public class Main {
 
 ---
 
-## 8. Key Takeaways
+## 8. Visual Summary
 
-* Java is an object-oriented language
-* Everything revolves around classes and objects
-* OOP helps in writing clean and reusable code
-* The four pillars are fundamental for any Java developer
+```text
+OOP = Encapsulation + Inheritance + Polymorphism + Abstraction
+```
+
+```text
+Encapsulation  -> Data hiding
+Inheritance    -> Code reuse
+Polymorphism   -> One interface, many forms
+Abstraction    -> Hide complexity
+```
 
 ---
 
 ## 9. Common Mistakes
 
-* Treating class and object as the same
-* Not understanding real-life mapping of OOP concepts
-* Jumping to advanced topics without strong basics
+```text
+- Confusing class and object
+- Not relating concepts to real-world examples
+- Memorizing definitions without understanding
+```
 
 ---
 
 ## 10. Interview Tips
 
-* Always explain OOP with real-life examples
-* Be clear on the difference between abstraction and encapsulation
-* Understand "why" OOP is used, not just definitions
+```text
+- Always explain concepts using real-life examples
+- Be clear on differences:
+    Encapsulation vs Abstraction
+- Understand WHY OOP is used
+```
+
+---
+
+## Final Thought
+
+```text
+If you understand OOP deeply, you understand the foundation of Java.
+Everything in Java builds on these concepts.
+```
 
 ---
