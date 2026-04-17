@@ -1,27 +1,26 @@
 /**
- * Day 14 - Access Modifiers and Packages: Demonstrating Package Access
+ * Day 14 - Access Modifiers: public / protected / default / private
  *
- * Concept:
- * Access modifiers control visibility of classes and members.
- * Packages organize code into logical groups.
+ * <p><b>Important note about this repo</b>
+ * These examples live in the <i>default package</i> (no {@code package ...;} statement)
+ * so we cannot truly demonstrate cross-package compilation in a single-folder example.
  *
- * This example demonstrates:
- * - Public class (accessible everywhere)
- * - Private, protected, default members
- * - Package organization
- * - Access control across boundaries
- *
- * Note: This example is in default package for simplicity
+ * <p><b>What this file demonstrates</b>
+ * <ul>
+ *   <li>Visibility within the same class</li>
+ *   <li>Visibility from a subclass</li>
+ *   <li>Visibility from a non-subclass in the same package</li>
+ * </ul>
  */
 public class AccessModifiersExample {
 
     /**
-     * Public class (accessible from anywhere)
+     * Base class containing members with different access levels.
      */
     public static class PublicClass {
         public String publicVar = "Public";
         protected String protectedVar = "Protected";
-        String defaultVar = "Default";
+        String defaultVar = "Default (package-private)";
         private String privateVar = "Private";
 
         public void publicMethod() {
@@ -33,22 +32,19 @@ public class AccessModifiersExample {
         }
 
         void defaultMethod() {
-            System.out.println("Default method");
+            System.out.println("Default (package-private) method");
         }
 
         private void privateMethod() {
             System.out.println("Private method");
         }
 
-        /**
-         * Show accessibility within same class
-         */
         void showAccessibility() {
             System.out.println("\n--- Access within same class ---");
             System.out.println(publicVar);
             System.out.println(protectedVar);
             System.out.println(defaultVar);
-            System.out.println(privateVar);  // Can access private too!
+            System.out.println(privateVar);
 
             publicMethod();
             protectedMethod();
@@ -58,72 +54,65 @@ public class AccessModifiersExample {
     }
 
     /**
-     * Child class inheriting PublicClass
+     * Subclass: can access public and protected members.
+     * In the same package, it can also access default members.
      */
     static class ChildClass extends PublicClass {
         void accessParentMembers() {
             System.out.println("\n--- Access in child class ---");
-            System.out.println(publicVar);      // OK: public
-            System.out.println(protectedVar);   // OK: protected (inherited)
-            // System.out.println(defaultVar);  // ERROR: default (not protected)
-            // System.out.println(privateVar);  // ERROR: private
+            System.out.println(publicVar);      // OK
+            System.out.println(protectedVar);   // OK
+            System.out.println(defaultVar);     // OK (same package)
+            // System.out.println(privateVar);  // ERROR
 
             publicMethod();
             protectedMethod();
-            // defaultMethod();   // ERROR
-            // privateMethod();   // ERROR
+            defaultMethod();
+            // privateMethod(); // ERROR
         }
     }
 
     /**
-     * Another class in same "package"
+     * Non-subclass in the same package: can access public/protected/default,
+     * but not private.
      */
     static class AnotherClass {
         void accessPublicClass() {
-            System.out.println("\n--- Access from another class (same level) ---");
+            System.out.println("\n--- Access from another class (same package) ---");
             PublicClass obj = new PublicClass();
 
-            System.out.println(obj.publicVar);      // OK: public
-            // System.out.println(obj.protectedVar);   // ERROR: protected (not subclass)
-            // System.out.println(obj.defaultVar);     // ERROR: default
-            // System.out.println(obj.privateVar);     // ERROR: private
+            System.out.println(obj.publicVar);
+            System.out.println(obj.protectedVar); // OK: same package
+            System.out.println(obj.defaultVar);   // OK: same package
+            // System.out.println(obj.privateVar); // ERROR
 
             obj.publicMethod();
-            // obj.protectedMethod();   // ERROR
-            // obj.defaultMethod();     // ERROR
-            // obj.privateMethod();     // ERROR
+            obj.protectedMethod();
+            obj.defaultMethod();
+            // obj.privateMethod(); // ERROR
         }
     }
 
     /**
-     * Main method - entry point
+     * Entry point.
+     *
+     * @param args CLI args (not used)
      */
     public static void main(String[] args) {
-
         System.out.println("=== Access Modifiers Demonstration ===");
 
-        // Access from same class
         PublicClass obj = new PublicClass();
         obj.showAccessibility();
 
-        // Access from different class (same package)
-        AnotherClass another = new AnotherClass();
-        another.accessPublicClass();
+        new AnotherClass().accessPublicClass();
+        new ChildClass().accessParentMembers();
 
-        // Access from child class
-        ChildClass child = new ChildClass();
-        child.accessParentMembers();
-
-        System.out.println("\n=== Summary of Access Levels ===");
+        System.out.println("\n=== Summary ===");
         System.out.println("""
                 public:      Accessible everywhere
-                protected:   Accessible in package + subclasses
-                default:     Accessible only in package
+                protected:   Accessible in same package + subclasses
+                default:     Accessible only in same package
                 private:     Accessible only in same class
                 """);
-
     }
-
 }
-
-

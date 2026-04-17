@@ -1,7 +1,7 @@
 /**
  * Day 32 - Design Patterns: Factory
  */
-public class FactoryPatternExample {
+public class FactoryExample {
 
     interface Shape {
         void draw();

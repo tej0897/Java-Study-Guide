@@ -20,6 +20,138 @@ You will learn:
 
 ---
 
+## Definitions
+
+```text
+Encapsulation
+  Bundling data (fields) + behavior (methods) in one unit (class) while
+  hiding internal state and exposing a controlled public API.
+
+Data hiding
+  Keeping fields private so they cannot be modified directly.
+
+Getter / Setter
+  Methods that read or update state with validation and rules.
+
+Invariant
+  A rule that must always be true for an object (e.g., balance >= 0).
+```
+
+---
+
+## Real-life analogies
+
+```text
+Car dashboard
+  You can increase speed using the pedal.
+  You cannot directly mutate the engine internals.
+
+Bank account
+  You cannot set balance directly.
+  You must use deposit/withdraw which enforce rules.
+```
+
+---
+
+## ASCII diagrams
+
+```text
+Without encapsulation (bad)
+  account.balance = -999999;   // anyone can break rules
+
+With encapsulation (good)
+  +------------------------+
+  | BankAccount            |
+  +------------------------+
+  | - balance (private)    |
+  +------------------------+
+  | + deposit(amount)      |
+  | + withdraw(amount)     |
+  | + getBalance()         |
+  +------------------------+
+```
+
+---
+
+## Code snippets
+
+```java
+class BankAccount {
+    private double balance;
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount <= 0) throw new IllegalArgumentException("amount must be > 0");
+        balance += amount;
+    }
+}
+```
+
+---
+
+## Step-by-step explanations
+
+```text
+How to encapsulate a class (practical checklist):
+
+1) Make fields private
+2) Decide the valid range/format for values (invariants)
+3) Provide public methods (getters/setters or domain methods)
+4) Validate inputs before updating state
+5) Keep object always valid (fail fast on invalid input)
+
+Tip:
+Prefer domain methods (deposit/withdraw) over raw setters (setBalance).
+```
+
+---
+
+## Edge cases / common mistakes
+
+```text
+1) "Encapsulation = getters/setters"
+   Not exactly. Encapsulation is controlled access; sometimes you expose
+   behavior methods instead of setters.
+
+2) Leaking internal mutable objects
+   Returning internal lists directly breaks encapsulation.
+   Prefer unmodifiable views / defensive copies.
+
+3) Validation only in UI layer
+   Validation must also exist in domain methods to protect the object.
+```
+
+---
+
+## Interview tips
+
+```text
+Q) Why make fields private?
+A) To protect invariants and allow future internal changes without breaking callers.
+
+Q) Encapsulation vs Abstraction?
+A) Encapsulation: protect state via controlled access.
+   Abstraction: expose what, hide how (interface/abstract class).
+```
+
+---
+
+## Summary
+
+```text
++-------------------+----------------------------------------------+
+| Topic             | Key point                                     |
++-------------------+----------------------------------------------+
+| Encapsulation     | data hiding + controlled access               |
+| private fields    | protects invariants                           |
+| getters/setters   | controlled reads/writes with validation        |
+| best practice     | prefer domain methods over raw setters        |
++-------------------+----------------------------------------------+
+```
+
 ## 1. What is Encapsulation?
 
 ```text

@@ -23,6 +23,142 @@ You will learn:
 
 ---
 
+## Definitions
+
+```text
+Inheritance
+  An OOP mechanism where a subclass reuses/extends the state and behavior of a superclass.
+
+Superclass (parent/base class)
+  The class being extended.
+
+Subclass (child/derived class)
+  The class that extends the superclass.
+
+IS-A relationship
+  A design relationship: if B extends A, then "B is an A".
+
+Override
+  A subclass provides a new implementation of a superclass method
+  with the SAME signature.
+
+super
+  Refers to the parent part of the current object (constructor/method access).
+```
+
+---
+
+## Real-life analogies
+
+```text
+Vehicle hierarchy
+  Vehicle (common behavior) -> Car/Bike (specialized behavior)
+
+Company roles
+  Employee -> Developer/Manager
+  Both share common fields (name/id) and add role-specific behavior.
+```
+
+---
+
+## ASCII diagrams
+
+```text
+        +----------------+
+        |    Vehicle     |
+        +----------------+
+        | start(), stop()|
+        +----------------+
+           ^          ^
+           |          |
+   +-------+--+   +---+-------+
+   |   Car     |   |   Bike    |
+   +-----------+   +-----------+
+   | openTrunk |   | kickStart |
+   +-----------+   +-----------+
+```
+
+---
+
+## Code snippets
+
+```java
+class Vehicle {
+    void start() { System.out.println("Vehicle starts"); }
+}
+
+class Car extends Vehicle {
+    @Override
+    void start() { System.out.println("Car starts with key"); }
+}
+
+Vehicle v = new Car();
+v.start(); // prints: Car starts with key (runtime dispatch)
+```
+
+---
+
+## Step-by-step explanations
+
+```text
+What happens when you call a method on a parent reference:
+
+1) The reference type (Vehicle) decides what methods are accessible at compile time
+2) The actual object type (Car) decides which overridden implementation runs at runtime
+
+This behaviour is called dynamic dispatch and is the base of runtime polymorphism.
+```
+
+---
+
+## Edge cases / common mistakes
+
+```text
+1) Misusing inheritance where composition fits better
+   If it is not a true IS-A relationship, prefer composition (HAS-A).
+
+2) Forgetting @Override
+   Without it, you might overload by mistake (different signature).
+
+3) Calling overridden methods from constructors
+   Avoid calling overridable methods inside constructors; the child might not be initialized yet.
+
+4) Access modifiers in override
+   You cannot reduce visibility when overriding (public -> cannot become protected/private).
+```
+
+---
+
+## Interview tips
+
+```text
+Q) Difference between overloading and overriding?
+A) Overloading: same name, different params (compile-time).
+   Overriding : same signature, different implementation (runtime).
+
+Q) Why do we use super()?
+A) To initialize the superclass part of the object.
+
+Q) Can Java support multiple inheritance?
+A) Not for classes. Java supports multiple inheritance of type via interfaces.
+```
+
+---
+
+## Summary
+
+```text
++-------------------+----------------------------------------------+
+| Topic             | Key point                                     |
++-------------------+----------------------------------------------+
+| Inheritance       | reuse + specialization (IS-A)                 |
+| extends           | creates parent-child relationship             |
+| Override          | same signature, different implementation      |
+| super             | access parent state/constructor/method        |
+| Best practice     | prefer composition if not a true IS-A         |
++-------------------+----------------------------------------------+
+```
+
 ## 1. What is Inheritance?
 
 ```text

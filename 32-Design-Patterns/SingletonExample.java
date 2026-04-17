@@ -1,7 +1,7 @@
 /**
  * Day 32 - Design Patterns: Singleton
  */
-public class SingletonPatternExample {
+public class SingletonExample {
 
     static class Database {
         private static Database instance;

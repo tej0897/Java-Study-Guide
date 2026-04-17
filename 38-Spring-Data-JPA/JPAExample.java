@@ -23,7 +23,7 @@
 //     User findByEmail(String email);
 // }
 
-public class JPAConceptExample {
+public class JPAExample {
     public static void main(String[] args) {
         System.out.println("=== Spring Data JPA ===\n");
         System.out.println("@Entity: Maps class to database table");

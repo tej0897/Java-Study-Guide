@@ -20,6 +20,136 @@ You will learn:
 
 ---
 
+## Definitions
+
+```text
+static
+  Member belongs to the class, not to individual objects.
+
+Static field
+  Single shared variable per class (one copy in memory).
+
+Static method
+  Method callable without an instance; cannot directly access instance fields.
+
+Static block
+  Runs once when the class is initialized (class loading/init time).
+
+Class initialization
+  When the JVM initializes static fields/blocks before using the class.
+```
+
+---
+
+## Real-life analogies
+
+```text
+Static field
+  Like a shared notice board for all students in a university.
+
+Instance field
+  Like each student's personal notebook.
+```
+
+---
+
+## ASCII diagrams
+
+```text
+Class: Student
+
+Static (shared once):
+  universityName
+  totalStudents
+
+Per object:
+  name, age, gpa
+
+Student s1         Student s2
+  name=John          name=Jane
+  gpa=3.8            gpa=3.9
+  |                 |
+  +------ share ----+--> totalStudents
+```
+
+---
+
+## Code snippets
+
+```java
+class Counter {
+    private static int total;
+
+    static void inc() { total++; }
+    static int getTotal() { return total; }
+}
+
+Counter.inc();
+System.out.println(Counter.getTotal());
+```
+
+---
+
+## Step-by-step explanations
+
+```text
+When to use static:
+1) Constants: public static final
+2) Utility methods: Math.max, Collections.sort
+3) Shared counters/registries (careful with concurrency)
+4) Factory methods (static create(...))
+
+When NOT to use static:
+1) When behavior depends on per-object state
+2) When you want easy testing/mocking (static tends to couple code)
+```
+
+---
+
+## Edge cases / common mistakes
+
+```text
+1) Using static as global variables
+   Can hurt testability and lead to hidden shared state bugs.
+
+2) Static initialization order
+   Static fields initialize in declaration order, then static blocks run.
+
+3) Static method "overriding"
+   Static methods are hidden, not overridden.
+```
+
+---
+
+## Interview tips
+
+```text
+Q) Can static methods access instance fields?
+A) Not directly. They need an object reference.
+
+Q) Why main is static?
+A) JVM needs an entry point without creating an object first.
+
+Q) What is the static initialization order?
+A) Static fields/blocks are initialized when class is first initialized.
+   Order: top-to-bottom as they appear.
+```
+
+---
+
+## Summary
+
+```text
++-------------------+----------------------------------------------+
+| Member            | Belongs to                                   |
++-------------------+----------------------------------------------+
+| instance field    | each object                                   |
+| static field      | class (shared)                                |
+| instance method   | each object (can use both instance & static)  |
+| static method     | class (cannot use instance without reference) |
++-------------------+----------------------------------------------+
+```
+
 ## 1. What is Static?
 
 ```text

@@ -20,6 +20,135 @@ You will learn:
 
 ---
 
+## Definitions
+
+```text
+Polymorphism
+  "Many forms". One interface / one parent type, many concrete behaviors.
+
+Compile-time polymorphism
+  Method overloading: same method name, different parameter list.
+
+Runtime polymorphism
+  Method overriding + dynamic dispatch: parent reference points to child object,
+  overridden method implementation is chosen at runtime.
+
+Dynamic dispatch
+  JVM decides which overridden method to invoke based on the actual object type.
+```
+
+---
+
+## Real-life analogies
+
+```text
+Payment
+  pay() works differently depending on the payment type:
+    pay(Cash)
+    pay(Card)
+    pay(UPI)
+
+Same action name, different behaviour.
+```
+
+---
+
+## ASCII diagrams
+
+```text
+          Animal (parent)
+             |
+   +---------+---------+
+   |         |         |
+  Dog      Bird       Fish
+
+Animal a = new Dog();
+a.move();  -> Dog's move()
+```
+
+---
+
+## Code snippets
+
+```java
+// Overloading (compile-time)
+int add(int a, int b) { return a + b; }
+int add(int a, int b, int c) { return a + b + c; }
+
+// Overriding (runtime)
+class Animal { void sound() { System.out.println("..."); } }
+class Dog extends Animal {
+    @Override void sound() { System.out.println("Woof"); }
+}
+
+Animal x = new Dog();
+x.sound(); // Woof
+```
+
+---
+
+## Step-by-step explanations
+
+```text
+How runtime polymorphism works:
+
+1) Compile-time: the reference type decides what methods you can call
+   Animal a = new Dog();
+   a.sound();  // allowed because Animal has sound()
+
+2) Runtime: the object type decides which implementation runs
+   because Dog overrides sound(), Dog.sound() executes.
+```
+
+---
+
+## Edge cases / common mistakes
+
+```text
+1) Thinking overriding depends on reference type
+   It depends on actual object type.
+
+2) Static methods are not polymorphic
+   static methods are hidden, not overridden.
+
+3) Fields are not polymorphic
+   Field access uses reference type, methods use object type.
+
+4) Overloading confusion
+   Overloading is decided at compile time based on parameter types.
+```
+
+---
+
+## Interview tips
+
+```text
+Q) Overloading vs overriding?
+A) Overloading: same name, different params (compile-time).
+   Overriding : same signature, different implementation (runtime).
+
+Q) Can a constructor be overridden?
+A) No. Constructors are not inherited.
+
+Q) Does Java support polymorphism without inheritance?
+A) Yes, via interfaces.
+```
+
+---
+
+## Summary
+
+```text
++--------------------------+-----------------------------------------+
+| Topic                    | Key point                                |
++--------------------------+-----------------------------------------+
+| Polymorphism             | one type, many behaviors                  |
+| Compile-time (overload)  | chosen by params at compile time          |
+| Runtime (override)       | chosen by object type at runtime          |
+| Not polymorphic          | fields + static methods                   |
++--------------------------+-----------------------------------------+
+```
+
 ## 1. What is Polymorphism?
 
 ```text

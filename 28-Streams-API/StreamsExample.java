@@ -4,7 +4,7 @@
 import java.util.*;
 import java.util.stream.*;
 
-public class StreamsAPIExample {
+public class StreamsExample {
     public static void main(String[] args) {
         System.out.println("=== Streams API ===\n");
 

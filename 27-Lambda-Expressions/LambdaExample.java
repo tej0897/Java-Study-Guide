@@ -3,7 +3,7 @@
  */
 import java.util.*;
 
-public class LambdaExpressionExample {
+public class LambdaExample {
 
     @FunctionalInterface
     interface Calculator {

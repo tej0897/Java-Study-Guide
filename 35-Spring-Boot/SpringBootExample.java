@@ -20,7 +20,7 @@
 //     }
 // }
 
-public class SpringBootConceptExample {
+public class SpringBootExample {
     public static void main(String[] args) {
         System.out.println("Spring Boot concepts illustrated");
         System.out.println("@SpringBootApplication - Main entry point");

@@ -3,7 +3,7 @@
  */
 import java.util.concurrent.*;
 
-public class ExecutorFrameworkExample {
+public class ExecutorExample {
     public static void main(String[] args) {
         System.out.println("=== Executor Framework ===\n");
 

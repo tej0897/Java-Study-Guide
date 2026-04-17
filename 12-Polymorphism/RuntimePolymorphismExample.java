@@ -1,144 +1,112 @@
 /**
- * Day 12 - Polymorphism: Runtime Polymorphism
+ * Day 12 - Polymorphism: Runtime Polymorphism (Overriding + Dynamic Dispatch)
  *
- * Concept:
- * Runtime polymorphism occurs when a parent reference points to child objects
- * and the method called is determined at runtime based on actual object type.
+ * <p><b>Concept</b>
+ * Runtime polymorphism occurs when:
+ * <ul>
+ *   <li>a parent reference points to a child object</li>
+ *   <li>a method is overridden in the child</li>
+ *   <li>the JVM decides at runtime which implementation to execute</li>
+ * </ul>
  *
- * This example demonstrates:
- * - Parent reference holding child objects
- * - Runtime method resolution
- * - Polymorphic collections
- * - Same interface, different behaviors
- *
- * Real-life analogy:
- * Remote control (interface) works with different devices (implementations)
+ * <p><b>Real-life analogy</b>
+ * A remote control has the same buttons (contract), but different devices respond differently.
  */
 public class RuntimePolymorphismExample {
 
-    /**
-     * Parent class: Animal
-     */
+    /** Parent type. */
     static class Animal {
-        String name;
+        private final String name;
 
         Animal(String name) {
+            if (name == null || name.isBlank()) {
+                throw new IllegalArgumentException("name must be non-blank");
+            }
             this.name = name;
         }
 
+        String getName() {
+            return name;
+        }
+
         void sound() {
-            System.out.println("Animal makes sound");
+            System.out.println("Animal makes a sound");
         }
 
         void move() {
             System.out.println("Animal moves");
         }
+
+        @Override
+        public String toString() {
+            return getClass().getSimpleName() + "{" + "name='" + name + "'}";
+        }
     }
 
-    /**
-     * Child class: Dog
-     */
     static class Dog extends Animal {
-        Dog(String name) {
-            super(name);
-        }
+        Dog(String name) { super(name); }
 
         @Override
         void sound() {
-            System.out.println(name + " barks: Woof Woof");
+            System.out.println(getName() + " barks: Woof Woof");
         }
 
         @Override
         void move() {
-            System.out.println(name + " runs on four legs");
+            System.out.println(getName() + " runs on four legs");
         }
     }
 
-    /**
-     * Child class: Bird
-     */
     static class Bird extends Animal {
-        Bird(String name) {
-            super(name);
-        }
+        Bird(String name) { super(name); }
 
         @Override
         void sound() {
-            System.out.println(name + " chirps: Tweet Tweet");
+            System.out.println(getName() + " chirps: Tweet Tweet");
         }
 
         @Override
         void move() {
-            System.out.println(name + " flies in the sky");
+            System.out.println(getName() + " flies in the sky");
         }
     }
 
-    /**
-     * Child class: Fish
-     */
     static class Fish extends Animal {
-        Fish(String name) {
-            super(name);
-        }
+        Fish(String name) { super(name); }
 
         @Override
         void sound() {
-            System.out.println(name + " makes bubbling sound");
+            System.out.println(getName() + " makes bubbling sound");
         }
 
         @Override
         void move() {
-            System.out.println(name + " swims in water");
+            System.out.println(getName() + " swims in water");
         }
     }
 
     /**
-     * Main method - entry point
+     * Entry point.
+     *
+     * @param args CLI args (not used)
      */
     public static void main(String[] args) {
-
         System.out.println("--- Runtime Polymorphism ---\n");
 
-        // Parent reference, child objects
         Animal dog = new Dog("Buddy");
         Animal bird = new Bird("Tweety");
         Animal fish = new Fish("Nemo");
 
-        System.out.println("--- Polymorphic Method Calls ---");
-        System.out.println("Method resolved at RUNTIME based on actual object type:\n");
-
-        dog.sound();   // Calls Dog.sound()
-        dog.move();    // Calls Dog.move()
-
-        System.out.println();
-
-        bird.sound();  // Calls Bird.sound()
-        bird.move();   // Calls Bird.move()
-
-        System.out.println();
-
-        fish.sound();  // Calls Fish.sound()
-        fish.move();   // Calls Fish.move()
-
-        System.out.println("\n--- Polymorphic Array ---");
-        System.out.println("All stored as Animal but behave differently:\n");
-
         Animal[] animals = {dog, bird, fish};
 
-        for (Animal animal : animals) {
-            System.out.println("Processing " + animal.name + ":");
-            animal.sound();
-            animal.move();
+        System.out.println("All stored as Animal, but behavior differs at runtime:\n");
+        for (Animal a : animals) {
+            System.out.println("Processing: " + a);
+            a.sound();
+            a.move();
             System.out.println();
         }
 
-        System.out.println("--- Key Insight ---");
-        System.out.println("Same method name (sound, move)");
-        System.out.println("Different behavior based on actual object type");
-        System.out.println("This is the power of polymorphism!");
-
+        System.out.println("Key insight: method call dispatch depends on actual object type.");
     }
-
 }
-
-

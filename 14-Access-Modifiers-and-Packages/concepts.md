@@ -19,6 +19,136 @@ You will learn:
 
 ---
 
+## Definitions
+
+```text
+Access modifier
+  A keyword controlling visibility of classes/members.
+
+public
+  Visible everywhere.
+
+protected
+  Visible in same package + subclasses (even in other packages).
+
+default (package-private)
+  Visible only within the same package.
+
+private
+  Visible only within the same class.
+
+Package
+  A namespace for grouping related classes and avoiding naming conflicts.
+```
+
+---
+
+## Real-life analogies
+
+```text
+House access
+  public    -> front yard (anyone can enter)
+  protected -> family members
+  default   -> people in the same apartment building
+  private   -> your personal locker
+
+Packages
+  Like folders / departments in a company.
+```
+
+---
+
+## ASCII diagrams
+
+```text
+Package: com.company.billing
+  - Invoice
+  - PaymentService
+
+Package: com.company.user
+  - User
+  - UserService
+```
+
+---
+
+## Code snippets
+
+```java
+package com.example.app;
+
+public class UserService {
+    private int retryCount;
+
+    public void login(String user) {
+        // public API
+    }
+}
+```
+
+---
+
+## Step-by-step explanations
+
+```text
+How to choose the right access modifier:
+
+1) Start with the most restrictive (private)
+2) Relax only if required
+3) Expose behavior via public methods; keep fields private
+
+How to use packages:
+1) Group by feature (recommended for applications): user/, billing/, order/
+2) Keep package names lowercase and domain-like (com.company.feature)
+```
+
+---
+
+## Edge cases / common mistakes
+
+```text
+1) Overusing public fields
+   Makes your code fragile and breaks encapsulation.
+
+2) Confusing protected
+   Protected is NOT "package-private"; it is visible to subclasses, too.
+
+3) Wildcard imports
+   import java.util.*; is ok for examples, but explicit imports are clearer in production.
+```
+
+---
+
+## Interview tips
+
+```text
+Q) What is default access?
+A) No modifier: visible only within the same package.
+
+Q) Can a top-level class be private?
+A) No. Only nested classes can be private.
+
+Q) What is the benefit of packages?
+A) Organization + avoiding naming conflicts + access control boundary.
+```
+
+---
+
+## Summary
+
+```text
++------------------+-----------------------------------------------+
+| Modifier         | Visibility                                    |
++------------------+-----------------------------------------------+
+| public           | everywhere                                    |
+| protected        | package + subclasses                           |
+| default          | package only                                   |
+| private          | same class only                                |
++------------------+-----------------------------------------------+
+
+Use packages to organize by feature and keep APIs small.
+```
+
 ## 1. Packages
 
 ### What is a Package?

@@ -35,7 +35,9 @@ class MyThread extends Thread {
         System.out.println("Thread running");
     }
 }
+```
 
+```text
 MyThread thread = new MyThread();
 thread.start();
 ```
@@ -50,7 +52,9 @@ class MyRunnable implements Runnable {
         System.out.println("Runnable running");
     }
 }
+```
 
+```text
 Thread thread = new Thread(new MyRunnable());
 thread.start();
 ```
@@ -59,9 +63,9 @@ thread.start();
 
 ## 4. Thread Methods
 
-```java
+```text
 thread.start()      // Start execution
-thread.sleep(1000)  // Pause for milliseconds
+Thread.sleep(1000)  // Pause for milliseconds (static method)
 thread.join()       // Wait for completion
 thread.setPriority(10)
 thread.getName()
@@ -73,9 +77,10 @@ thread.getName()
 
 ```text
 NEW           - Just created
-RUNNABLE      - Ready to run
-RUNNING       - Currently executing
-WAITING       - Waiting for other thread
+RUNNABLE      - Ready to run ("running" is an informal subset of RUNNABLE)
+BLOCKED       - Waiting to acquire a monitor lock
+WAITING       - Waiting indefinitely for another thread
+TIMED_WAITING - Waiting for a specified time (sleep/join with timeout)
 TERMINATED    - Finished execution
 ```
 

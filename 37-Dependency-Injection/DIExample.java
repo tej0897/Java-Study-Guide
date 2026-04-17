@@ -1,7 +1,7 @@
 /**
  * Day 37 - Dependency Injection: Constructor Injection
  */
-public class ConstructorInjectionExample {
+public class DIExample {
 
     interface EmailService {
         void sendEmail(String to, String message);

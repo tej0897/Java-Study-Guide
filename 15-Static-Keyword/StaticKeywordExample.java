@@ -1,109 +1,98 @@
 /**
- * Day 15 - Static Keyword: Static Variables and Methods
+ * Day 15 - Static Keyword: Static Fields and Static Methods
  *
- * Concept:
- * Static variables and methods belong to the class, not individual objects.
- * They are shared by all instances of the class.
+ * <p><b>Concept</b>
+ * {@code static} members belong to the class (shared once), not to objects.
  *
- * This example demonstrates:
- * - Static variables (shared across objects)
- * - Static methods (called on class)
- * - Instance vs static differentiation
- * - When static is useful
- *
- * Real-life analogy:
- * Instance: Each person has own salary
- * Static: All employees follow company policy
+ * <p><b>What this file demonstrates</b>
+ * <ul>
+ *   <li>A static field used as a shared counter</li>
+ *   <li>A static field used as shared configuration</li>
+ *   <li>A static utility method</li>
+ *   <li>Why calling static via instance is allowed but discouraged</li>
+ * </ul>
  */
 public class StaticKeywordExample {
 
-    /**
-     * Student class demonstrating static usage
-     */
     static class Student {
-        // Static variable: shared by all students
+        /** Shared across all Student objects. */
         static int totalStudents = 0;
+
+        /** Shared configuration (example only). */
         static String universityName = "MIT";
 
-        // Instance variables: unique to each student
-        String name;
-        int age;
-        double gpa;
+        private final String name;
+        private final int age;
+        private final double gpa;
 
-        /**
-         * Constructor
-         */
         Student(String name, int age, double gpa) {
+            if (name == null || name.isBlank()) {
+                throw new IllegalArgumentException("name must be non-blank");
+            }
+            if (age <= 0) {
+                throw new IllegalArgumentException("age must be positive");
+            }
+            if (gpa < 0.0 || gpa > 4.0) {
+                throw new IllegalArgumentException("gpa must be in [0.0, 4.0]");
+            }
             this.name = name;
             this.age = age;
             this.gpa = gpa;
-            totalStudents++;  // Increment shared variable
+
+            totalStudents++; // shared counter
         }
 
-        /**
-         * Instance method: uses instance variables
-         */
         void displayInfo() {
             System.out.println("Name: " + name + ", Age: " + age + ", GPA: " + gpa);
-            System.out.println("University: " + universityName);  // Can access static
+            System.out.println("University: " + universityName);
         }
 
-        /**
-         * Static method: cannot access instance variables
-         */
         static void displayStatistics() {
-            System.out.println("Total students: " + totalStudents);  // OK: static
-            System.out.println("University: " + universityName);     // OK: static
-            // System.out.println(name);  // ERROR: instance variable
+            System.out.println("Total students: " + totalStudents);
+            System.out.println("University: " + universityName);
         }
 
-        /**
-         * Static method: utility method
-         */
-        static double averageGPA(double gpa1, double gpa2) {
-            return (gpa1 + gpa2) / 2;
+        static double averageGPA(double... gpas) {
+            if (gpas == null || gpas.length == 0) {
+                throw new IllegalArgumentException("at least one GPA is required");
+            }
+            double sum = 0;
+            for (double gpa : gpas) {
+                sum += gpa;
+            }
+            return sum / gpas.length;
         }
     }
 
     /**
-     * Main method - entry point
+     * Entry point.
+     *
+     * @param args CLI args (not used)
      */
     public static void main(String[] args) {
-
         System.out.println("=== Static Keyword Example ===\n");
 
-        System.out.println("--- Creating Students ---");
         Student s1 = new Student("John", 20, 3.8);
         Student s2 = new Student("Jane", 19, 3.9);
         Student s3 = new Student("Bob", 21, 3.7);
 
-        System.out.println("\n--- Displaying Information ---");
+        System.out.println("--- Instance info (per object) ---");
         s1.displayInfo();
         System.out.println();
         s2.displayInfo();
 
-        System.out.println("\n--- Static Variables (Shared) ---");
-        System.out.println("s1.totalStudents: " + s1.totalStudents);
-        System.out.println("s2.totalStudents: " + s2.totalStudents);
-        System.out.println("s3.totalStudents: " + s3.totalStudents);
-        System.out.println("All show same value (shared): " + Student.totalStudents);
+        System.out.println("\n--- Static fields (shared) ---");
+        System.out.println("Student.totalStudents: " + Student.totalStudents);
+        System.out.println("Student.universityName: " + Student.universityName);
 
-        System.out.println("\n--- Calling Static Method ---");
-        Student.displayStatistics();  // Called on class, not object
+        System.out.println("\n--- Calling static methods (recommended via class) ---");
+        Student.displayStatistics();
 
-        System.out.println("\n--- Static Utility Method ---");
-        double avgGPA = Student.averageGPA(3.8, 3.9);
-        System.out.println("Average GPA: " + avgGPA);
+        System.out.println("\n--- Calling static methods via instance (discouraged) ---");
+        // This compiles, but it looks like it depends on object state (it does not).
+        s3.displayStatistics();
 
-        System.out.println("\n--- Key Insights ---");
-        System.out.println("1. totalStudents is shared (all see same value)");
-        System.out.println("2. Each student has own name, age, gpa");
-        System.out.println("3. Static method called on class: Student.displayStatistics()");
-        System.out.println("4. Can still call on object: s1.displayStatistics() (but not recommended)");
-        System.out.println("5. Static methods useful for utilities (no object state needed)");
-
+        System.out.println("\n--- Static utility method ---");
+        System.out.println("Average GPA: " + Student.averageGPA(3.8, 3.9, 3.7));
     }
-
 }
-
-

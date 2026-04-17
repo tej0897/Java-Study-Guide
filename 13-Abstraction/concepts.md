@@ -20,6 +20,128 @@ You will learn:
 
 ---
 
+## Definitions
+
+```text
+Abstraction
+  Hiding implementation details and exposing only a clear contract.
+  Show: WHAT
+  Hide: HOW
+
+Abstract class
+  A class that cannot be instantiated.
+  Can contain both abstract methods and concrete methods.
+
+Interface
+  A contract that a class agrees to implement.
+  (Modern Java can also have default/static methods.)
+```
+
+---
+
+## Real-life analogies
+
+```text
+Driving
+  You use steering and pedals (contract).
+  You do not manage engine combustion (implementation).
+
+Payment gateway
+  pay(amount) is the contract.
+  Card/UPI/Wallet implement it differently.
+```
+
+---
+
+## ASCII diagrams
+
+```text
+            Vehicle (abstract)
+         +---------------------+
+         | + start()  (abstract)|
+         | + stop()   (concrete)|
+         +---------------------+
+                 ^
+                 |
+        +--------+--------+
+        |                 |
+      Car               Bike
+ (implements start)  (implements start)
+```
+
+---
+
+## Code snippets
+
+```java
+abstract class Vehicle {
+    abstract void start();
+    void stop() { System.out.println("Stopped"); }
+}
+
+class Car extends Vehicle {
+    @Override void start() { System.out.println("Car starts"); }
+}
+```
+
+---
+
+## Step-by-step explanations
+
+```text
+How abstraction helps:
+
+1) Define stable contracts (interfaces/abstract classes)
+2) Write code against the contract, not the implementation
+3) Swap implementations without changing calling code
+
+Result:
+  cleaner design + easier testing + fewer dependencies.
+```
+
+---
+
+## Edge cases / common mistakes
+
+```text
+1) Confusing encapsulation and abstraction
+   Encapsulation: protect state (private fields).
+   Abstraction: hide complexity behind a contract.
+
+2) Overusing abstraction early
+   Abstraction is useful, but premature abstraction can overcomplicate.
+
+3) Interface vs abstract class
+   Use interface for capabilities/roles; use abstract class for shared code + base state.
+```
+
+---
+
+## Interview tips
+
+```text
+Q) Interface vs abstract class?
+A) Interface: contract, multiple can be implemented.
+   Abstract class: shared base behavior/state, single inheritance.
+
+Q) Can abstract class have constructors?
+A) Yes. Used by subclasses via super(...).
+```
+
+---
+
+## Summary
+
+```text
++-------------------+----------------------------------------------+
+| Topic             | Key point                                     |
++-------------------+----------------------------------------------+
+| Abstraction       | show WHAT, hide HOW                            |
+| Abstract class    | can share code + force methods via abstract    |
+| Interface         | contract; enables polymorphism and loose coupling|
++-------------------+----------------------------------------------+
+```
+
 ## 1. What is Abstraction?
 
 ```text

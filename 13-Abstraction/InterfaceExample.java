@@ -1,39 +1,38 @@
 /**
- * Day 13 - Abstraction: Interface Example
+ * Day 13 - Abstraction: Interface as a Contract
  *
- * Concept:
- * Interface is a contract that specifies what methods a class must implement.
- * Multiple classes can implement the same interface.
+ * <p><b>Concept</b>
+ * An interface defines a contract: what operations a type must support.
+ * Implementing classes provide the concrete behavior.
  *
- * This example demonstrates:
- * - Defining interface
- * - Implementing interface
- * - Multiple implementations
- * - Interface reference and polymorphism
- *
- * Real-life analogy:
- * Interface = Contract/Promise
- * Implementation = Fulfilling the contract
+ * <p><b>What this file demonstrates</b>
+ * <ul>
+ *   <li>Defining an interface ({@code Shape})</li>
+ *   <li>Multiple implementations (Circle/Rectangle/Triangle)</li>
+ *   <li>Using an interface reference for polymorphism</li>
+ * </ul>
  */
 public class InterfaceExample {
 
     /**
-     * Interface: Shape
-     * Contract: what methods a shape must have
+     * Contract for shapes.
+     * In real systems you might separate printing (display) from the domain.
      */
     interface Shape {
         double area();
+
         double perimeter();
+
         void display();
     }
 
-    /**
-     * Implementing class: Circle
-     */
     static class Circle implements Shape {
-        double radius;
+        private final double radius;
 
         Circle(double radius) {
+            if (radius <= 0) {
+                throw new IllegalArgumentException("radius must be > 0");
+            }
             this.radius = radius;
         }
 
@@ -49,18 +48,18 @@ public class InterfaceExample {
 
         @Override
         public void display() {
-            System.out.println("Circle with radius: " + radius);
+            System.out.println("Circle(radius=" + radius + ")");
         }
     }
 
-    /**
-     * Implementing class: Rectangle
-     */
     static class Rectangle implements Shape {
-        double length;
-        double width;
+        private final double length;
+        private final double width;
 
         Rectangle(double length, double width) {
+            if (length <= 0 || width <= 0) {
+                throw new IllegalArgumentException("length and width must be > 0");
+            }
             this.length = length;
             this.width = width;
         }
@@ -77,17 +76,23 @@ public class InterfaceExample {
 
         @Override
         public void display() {
-            System.out.println("Rectangle " + length + " x " + width);
+            System.out.println("Rectangle(" + length + " x " + width + ")");
         }
     }
 
-    /**
-     * Implementing class: Triangle
-     */
     static class Triangle implements Shape {
-        double a, b, c;
+        private final double a;
+        private final double b;
+        private final double c;
 
         Triangle(double a, double b, double c) {
+            if (a <= 0 || b <= 0 || c <= 0) {
+                throw new IllegalArgumentException("triangle sides must be > 0");
+            }
+            // Triangle inequality: each side < sum of the other two
+            if (a + b <= c || a + c <= b || b + c <= a) {
+                throw new IllegalArgumentException("invalid triangle sides (triangle inequality violated)");
+            }
             this.a = a;
             this.b = b;
             this.c = c;
@@ -95,6 +100,7 @@ public class InterfaceExample {
 
         @Override
         public double area() {
+            // Heron's formula
             double s = (a + b + c) / 2;
             return Math.sqrt(s * (s - a) * (s - b) * (s - c));
         }
@@ -106,45 +112,31 @@ public class InterfaceExample {
 
         @Override
         public void display() {
-            System.out.println("Triangle with sides: " + a + ", " + b + ", " + c);
+            System.out.println("Triangle(" + a + ", " + b + ", " + c + ")");
         }
     }
 
     /**
-     * Main method - entry point
+     * Entry point.
+     *
+     * @param args CLI args (not used)
      */
     public static void main(String[] args) {
-
         System.out.println("--- Interface Example ---\n");
 
-        // Cannot instantiate interface
-        // Shape shape = new Shape();  // Compile error!
-
-        // Create instances of implementing classes
         Shape circle = new Circle(5);
         Shape rectangle = new Rectangle(4, 6);
         Shape triangle = new Triangle(3, 4, 5);
 
-        System.out.println("--- Polymorphic Array of Shapes ---\n");
-
         Shape[] shapes = {circle, rectangle, triangle};
 
-        for (Shape shape : shapes) {
-            shape.display();
-            System.out.println("Area: " + shape.area());
-            System.out.println("Perimeter: " + shape.perimeter());
-            System.out.println();
+        System.out.println("--- Polymorphic processing through interface ---\n");
+        for (Shape s : shapes) {
+            s.display();
+            System.out.printf("Area: %.2f%n", s.area());
+            System.out.printf("Perimeter: %.2f%n%n", s.perimeter());
         }
 
-        System.out.println("--- Key Points ---");
-        System.out.println("1. Shape is interface (contract)");
-        System.out.println("2. Circle, Rectangle, Triangle implement Shape");
-        System.out.println("3. Each provides own implementation");
-        System.out.println("4. Can use polymorphic array");
-        System.out.println("5. Same interface, different behaviors");
-
+        System.out.println("Key idea: callers depend on the Shape contract, not concrete classes.");
     }
-
 }
-
-

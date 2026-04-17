@@ -1,7 +1,7 @@
 /**
  * Day 31 - SOLID Principles: Single Responsibility
  */
-public class SingleResponsibilityExample {
+public class SolidExample {
 
     static class User {
         String name;
